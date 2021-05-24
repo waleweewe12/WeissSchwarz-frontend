@@ -36,7 +36,7 @@ function Profile(){
                     }
                 })
                 //get deck success
-                console.log(response.data);
+                //console.log(response.data);
                 if(response.data.status === 'success'){
                     setMyDeck(response.data.deck);
                 }

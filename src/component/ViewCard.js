@@ -18,9 +18,7 @@ export default () => {
     useEffect(() => {
         axios.get('http://localhost:5000/weissschwarz-f48e0/us-central1/app/card/getCardBySeriesName/' + series)
         .then((response) => {
-            console.log(response.data.cards);
-            let red_card = response.data.cards.filter(card => card.color === 'red');
-            console.log(red_card);
+            //console.log(response.data.cards);
             setCards(response.data.cards);
         }).catch((error) => {
             console.log(error);
