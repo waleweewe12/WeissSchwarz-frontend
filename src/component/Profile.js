@@ -11,6 +11,7 @@ import ViewDeck from './ViewDeck';
 import Series from './Series';
 import Navbar from './Navbar';
 import ViewCard from './ViewCard';
+import MyDeck from './MyDeck';
 
 function Profile(){
 
@@ -57,38 +58,7 @@ function Profile(){
                         <Redirect to="/MyDeck" />
                     </Route>
                     <Route exact path="/MyDeck">
-                        <div 
-                            className="row"
-                            style={{
-                                marginTop:'25px',
-                                marginLeft:'10%',
-                            }}
-                        >
-                            {myDeck.map((item, index) =>
-                                <div
-                                    key={index}
-                                    className="card"
-                                    style={{
-                                        width: "18rem",
-                                    }}
-                                >
-                                    <img src={item.DeckImage} alt="..."/>
-                                    <p style={{textAlign:'center'}}>{item.DeckName}</p>
-                                    <Link to={"/MyDeck/" + item.DeckId}>
-                                        <button 
-                                            type="button" 
-                                            className="btn btn-primary"
-                                            style={{
-                                                width:'100%',
-                                            }}
-                                            onClick={() => {handleViewDeckClicked(item.DeckId)}}
-                                        >
-                                            View Deck
-                                        </button>
-                                    </Link>
-                                </div>
-                            )}
-                        </div>
+                        <MyDeck myDeck={myDeck}/>
                     </Route>
                     <Route exact path="/MyDeck/:deckId">
                         <ViewDeck viewDeck={viewDeck}/>
