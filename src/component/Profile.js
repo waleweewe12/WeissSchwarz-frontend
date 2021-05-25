@@ -8,9 +8,10 @@ import {
     Redirect
 } from 'react-router-dom';
 import ViewDeck from './ViewDeck';
-import NewDeck from './NewDeck';
+import Series from './Series';
 import Navbar from './Navbar';
 import ViewCard from './ViewCard';
+import MyDeck from './MyDeck';
 
 function Profile(){
 
@@ -50,63 +51,32 @@ function Profile(){
 
     return(
         <>
-        <Router>
-            <Navbar/>
-            <Switch>
-                <Route exact path="/">
-                    <Redirect to="/MyDeck" />
-                </Route>
-                <Route exact path="/MyDeck">
-                    <div 
-                        className="row"
-                        style={{
-                            marginTop:'25px',
-                            marginLeft:'10%',
-                        }}
-                    >
-                        {myDeck.map((item, index) =>
-                            <div
-                                key={index}
-                                className="card"
-                                style={{
-                                    width: "18rem",
-                                }}
-                            >
-                                <img src={item.DeckImage} alt="..."/>
-                                <p style={{textAlign:'center'}}>{item.DeckName}</p>
-                                <Link to={"/MyDeck/" + item.DeckId}>
-                                    <button 
-                                        type="button" 
-                                        className="btn btn-primary"
-                                        style={{
-                                            width:'100%',
-                                        }}
-                                        onClick={() => {handleViewDeckClicked(item.DeckId)}}
-                                    >
-                                        View Deck
-                                    </button>
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-                </Route>
-                <Route exact path="/MyDeck/:deckId">
-                    <ViewDeck viewDeck={viewDeck}/>
-                </Route>
-                <Route exact path="/NewDeck">
-                    <NewDeck />
-                </Route>
-                <Route path="/NewDeck/:series">
-                    <ViewCard />
-                </Route>
-                <Route path="/Friend">
-                    <p>Friend</p>
-                </Route>
-                <Route path="/Invited">
-                    <p>Invited</p>
-                </Route>
-            </Switch>
-        </Router>
+            <Router>
+                <Navbar/>
+                <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/MyDeck" />
+                    </Route>
+                    <Route exact path="/MyDeck">
+                        <MyDeck myDeck={myDeck} handleViewDeckClicked={handleViewDeckClicked}/>
+                    </Route>
+                    <Route exact path="/MyDeck/:deckId">
+                        <ViewDeck viewDeck={viewDeck}/>
+                    </Route>
+                    <Route exact path="/Series">
+                        <Series />
+                    </Route>
+                    <Route path="/Series/:series">
+                        <ViewCard />
+                    </Route>
+                    <Route path="/Friend">
+                        <p>Friend</p>
+                    </Route>
+                    <Route path="/Invited">
+                        <p>Invited</p>
+                    </Route>
+                </Switch>
+            </Router>
         </>
     )
 }

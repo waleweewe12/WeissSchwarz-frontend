@@ -24,7 +24,7 @@ function NewDeck(){
                     {/* Display all series */}
                     {allSeries.map((value, index) => (
                         <Col key={index}>
-                            <Link to={'NewDeck/' + value.seriesName}>
+                            <Link to={'Series/' + value.seriesName}>
                                 <img 
                                     src={value.seriesImage} 
                                     style={{ width:'18rem' }} 

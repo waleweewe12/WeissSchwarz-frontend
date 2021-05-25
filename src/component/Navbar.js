@@ -14,7 +14,7 @@ function MyNavbar(){
             <Navbar bg="primary" variant="dark">
                 <Nav className="mr-auto">
                     <Link style={LinkStyle} to="/MyDeck">My Deck</Link>
-                    <Link style={LinkStyle} to="/NewDeck">+ New Deck</Link>
+                    <Link style={LinkStyle} to="/Series">Series</Link>
                 </Nav>
             </Navbar>
         </>
