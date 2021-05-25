@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Row, Card, Button } from 'react-bootstrap';
 
 export default (props) => {
-    //console.log(props);
     return(
         <>
             <Row 
