@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import firebase from '../firebase';
-import { Modal, Button, Card, Row, Col, Container } from 'react-bootstrap'; 
+import { Modal, Button, Card, Row, Col, Container, SafeAnchor } from 'react-bootstrap'; 
 
 function ViewDeck(props){
 
@@ -37,9 +37,11 @@ function ViewDeck(props){
                         let snapshot = await db.collection('card').where('CardId', '==', card.CardId).get();
                         let cardUrl = {};
                         snapshot.forEach((doc) => {
-                            cardUrl = doc.data().cardUrl;
-                            card['cardUrl'] = cardUrl;
-                        }) 
+                            for(let key in doc.data()){
+                                card[key] = doc.data()[key];
+                            }
+                        });
+                        console.log(card); 
                     }
                     setDeck(cardIds);
                 }
@@ -54,34 +56,51 @@ function ViewDeck(props){
    
     return(
         <>
-            <Row>
-                {deck.map((item, index) => (
-                    <Card
-                        key={index}
-                        style={{ 
-                            width: '8rem',
-                            cursor:'pointer' 
-                        }}
-                        onClick={() => {showCard(index)}}
-                    >
-                        <Card.Img variant="top" src={item.cardUrl} />
-                        <p
-                            style={{
-                                position:'absolute',
-                                right:'0',
-                                bottom:'0',
-                                marginBottom:'0',
-                                backgroundColor:'black',
-                                color:'white',
-                                padding:'5%',
-                                opacity:'0.8',
+            <Container fluid>
+                <Row>
+                    {deck.map((item, index) => (
+                        <Col xs={6} md={2} lg={1}>
+                            <Card
+                                key={index}
+                                style={{ 
+                                    cursor:'pointer',
+                                    marginTop:'20px', 
+                                }}
+                                onClick={() => {showCard(index)}}
+                            >
+                                <Card.Img variant="top" src={item.cardUrl} />
+                                <p
+                                    style={{
+                                        position:'absolute',
+                                        right:'0',
+                                        bottom:'0',
+                                        marginBottom:'0',
+                                        backgroundColor:'black',
+                                        color:'white',
+                                        padding:'5%',
+                                        opacity:'0.8',
+                                    }}
+                                >
+                                    x {item.count}
+                                </p>
+                            </Card>
+                        </Col>
+                    ))}
+                    {/* New Deck    */}
+                    <Col xs={6} md={2} lg={1}>
+                        <Card
+                            style={{ 
+                                cursor:'pointer',
+                                marginTop:'20px', 
+                                border:'none',
                             }}
                         >
-                            x {item.count}
-                        </p>
-                    </Card>
-                ))}   
-            </Row>
+                            <Card.Img variant="top" src={process.env.PUBLIC_URL + '/new_deck.PNG'} />
+                            <Card.Text>+ Add Card</Card.Text>
+                        </Card>
+                    </Col>
+                </Row>   
+            </Container>
             {/* Modal */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header >

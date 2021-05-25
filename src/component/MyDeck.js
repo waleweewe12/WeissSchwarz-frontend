@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Row, Card, Button } from 'react-bootstrap';
 
 export default (props) => {
+    //console.log(props);
     return(
         <>
             <Row 
@@ -12,25 +13,30 @@ export default (props) => {
                 }}
             >
                 {props.myDeck.map((item, index) =>
-                    <div
-                        key={index}
-                        className="card"
-                        style={{
-                            width: "18rem",
+                    <Card 
+                        style={{ 
+                            width: '10rem', 
+                            border:'none',
+                            marginRight:'50px'
                         }}
+                        key={index}
                     >
-                        <img src={item.DeckImage} alt="..."/>
-                        <p style={{textAlign:'center'}}>{item.DeckName}</p>
-                    </div>
+                        <Link to={'/MyDeck/' + item.DeckId}>
+                            <Card.Img variant="top" src={item.DeckImage} onClick={props.handleViewDeckClicked(item.DeckId)}/>
+                        </Link>
+                        <Card.Body >
+                            <Card.Title style={{textAlign:'center'}}>{item.DeckName}</Card.Title>
+                        </Card.Body>
+                    </Card>
                 )}
-                <Card style={{ width: '18rem', marginLeft:'10px'}}>
+                <Card style={{ width: '14rem', marginRight:'50px'}}>
                     <Card.Body 
                         style={{
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
                             borderStyle:'dashed',
-                            height:'300px'
+                            height:'16rem',
                         }}
                     >
                         <Card.Title style={{textAlign:'center'}}>+ New Deck</Card.Title>

@@ -58,7 +58,7 @@ function Profile(){
                         <Redirect to="/MyDeck" />
                     </Route>
                     <Route exact path="/MyDeck">
-                        <MyDeck myDeck={myDeck}/>
+                        <MyDeck myDeck={myDeck} handleViewDeckClicked={handleViewDeckClicked}/>
                     </Route>
                     <Route exact path="/MyDeck/:deckId">
                         <ViewDeck viewDeck={viewDeck}/>
