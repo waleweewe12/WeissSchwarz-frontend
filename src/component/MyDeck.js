@@ -1,47 +1,58 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Card, Button } from 'react-bootstrap';
+import { Row, Card, Col, Container} from 'react-bootstrap';
 
 export default (props) => {
+
+    const [addCard, setAddCard] = useState(false);
+    
+    const handleAddCardClicked = () => {
+        setAddCard(true);
+    }
+
     return(
         <>
-            <Row 
-                style={{
-                    marginTop:'25px',
-                    marginLeft:'10%',
-                }}
-            >
-                {props.myDeck.map((item, index) =>
-                    <Card 
-                        style={{ 
-                            width: '10rem', 
-                            border:'none',
-                            marginRight:'50px'
-                        }}
-                        key={index}
-                    >
-                        <Link to={'/MyDeck/' + item.DeckId}>
-                            <Card.Img variant="top" src={item.DeckImage} onClick={props.handleViewDeckClicked(item.DeckId)}/>
-                        </Link>
-                        <Card.Body >
-                            <Card.Title style={{textAlign:'center'}}>{item.DeckName}</Card.Title>
-                        </Card.Body>
-                    </Card>
-                )}
-                <Card style={{ width: '14rem', marginRight:'50px'}}>
-                    <Card.Body 
+            <Container fluid>
+                {!addCard &&
+                    <Row 
                         style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderStyle:'dashed',
-                            height:'16rem',
+                            marginTop:'25px',
+                            marginLeft:'10%',
                         }}
                     >
-                        <Card.Title style={{textAlign:'center'}}>+ New Deck</Card.Title>
-                    </Card.Body>
-                </Card>
-            </Row>
+                        {props.myDeck.map((item, index) =>
+                            <Col xs={6} md={3} lg={2} key={index}>
+                                <Card 
+                                    style={{ 
+                                        border:'none',
+                                    }}
+                                >
+                                    <Link to={'/MyDeck/' + item.DeckId}>
+                                        <Card.Img variant="top" src={item.DeckImage}/>
+                                    </Link>
+                                    <Card.Body >
+                                        <Card.Title style={{textAlign:'center'}}>{item.DeckName}</Card.Title>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )}
+                        <Col xs={6} md={3} lg={2}>
+                                <Card 
+                                    style={{ 
+                                        border:'none',
+                                        cursor:'pointer',
+                                    }}
+                                    onClick={handleAddCardClicked}
+                                >
+                                    <Card.Img variant="top" src={process.env.PUBLIC_URL + '/new_deck.PNG'}/>
+                                    <Card.Body >
+                                        <Card.Title style={{textAlign:'center'}}>+ New Deck</Card.Title>
+                                    </Card.Body>
+                                </Card>
+                        </Col>
+                    </Row>
+                }
+            </Container>
         </>
     )
 };

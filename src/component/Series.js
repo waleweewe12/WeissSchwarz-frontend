@@ -20,7 +20,7 @@ function NewDeck(){
     return(
         <>
             <Container>
-                <Row>
+                <Row style={{marginTop:'2%'}}>
                     {/* Display all series */}
                     {allSeries.map((value, index) => (
                         <Col key={index}>
@@ -32,17 +32,6 @@ function NewDeck(){
                                 />
                             </Link>
                             <p>{value.seriesName}</p>
-                        </Col>
-                    ))
-                    }
-                    {/* Displays the cards according to the selected series. */}
-                    {allCardSeries.map((value, index) => (
-                        <Col md={1} key={index}>
-                            <img 
-                                src={value.cardUrl} 
-                                style={{ width:'6rem' }} 
-                                alt="..."
-                            />
                         </Col>
                     ))
                     }

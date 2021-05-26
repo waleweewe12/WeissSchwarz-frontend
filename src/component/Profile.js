@@ -16,15 +16,6 @@ import MyDeck from './MyDeck';
 function Profile(){
 
     const [myDeck, setMyDeck] = useState([]);
-    const [viewDeck, setViewDeck] = useState([]);
-
-    const handleViewDeckClicked = (deckId) => {
-        myDeck.forEach(item => {
-            if(item.DeckId === deckId){
-                setViewDeck(item);
-            }
-        })
-    }
 
     useEffect(() => {
         async function loadMyDeck(){
@@ -58,10 +49,13 @@ function Profile(){
                         <Redirect to="/MyDeck" />
                     </Route>
                     <Route exact path="/MyDeck">
-                        <MyDeck myDeck={myDeck} handleViewDeckClicked={handleViewDeckClicked}/>
+                        <MyDeck myDeck={myDeck}/>
                     </Route>
                     <Route exact path="/MyDeck/:deckId">
-                        <ViewDeck viewDeck={viewDeck}/>
+                        <ViewDeck/>
+                    </Route>
+                    <Route exact path="/MyDeck/:deckId/:series/addCard">
+                        <ViewCard />
                     </Route>
                     <Route exact path="/Series">
                         <Series />
