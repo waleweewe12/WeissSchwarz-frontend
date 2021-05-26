@@ -46,6 +46,23 @@ export default (props) =>{
                                 ))}
                             </Col>
                         </Row>
+
+                        {props.deckId !== undefined &&
+                            <Row className="justify-content-center">
+                                <Col xs={6} md={4} lg={6}>
+                                    <Button 
+                                        variant="danger" 
+                                        style={{
+                                            width:'100%', 
+                                            marginTop:'20px'
+                                        }}
+                                        onClick={() => {props.addCardToDeck(props.modalItem)}}
+                                    >
+                                        เพิ่มลงเด็ค
+                                    </Button>
+                                </Col>
+                            </Row>
+                        }
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>

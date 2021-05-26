@@ -3,12 +3,12 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Card, Row, Col, Container} from 'react-bootstrap'; 
 import Modal from './Modal';
-import ViewCard from './ViewCard';
 
 function ViewDeck(){
     
     const { deckId } = useParams();
     const [deck, setDeck] = useState([]);
+    const [deckName, setDeckName] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [modalItem, setModalItem] = useState({});
 
@@ -87,6 +87,7 @@ function ViewDeck(){
             try {
                 let deckResponse  = await axios.get('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/getDeckByDeckId/' + deckId);
                 console.log(deckResponse.data);
+                setDeckName(deckResponse.data.deck.DeckName);
                 if(deckResponse.data.status === 'success'){
                     let cardIds = deckResponse.data.deck.CardIdList;
                     //get card data by cardId
@@ -107,7 +108,7 @@ function ViewDeck(){
         <>
             <Container>
                 <Row style={{marginTop:'50px'}}>
-                    <Col lg={12}><h1>Buta bory</h1></Col>
+                    <Col lg={12}><h1>{deckName}</h1></Col>
                     <Col><hr /></Col>
                 </Row>
                 <Row>
@@ -191,7 +192,11 @@ function ViewDeck(){
                 </Row>   
             </Container>
             {/* Modal */}
-            <Modal showModal={showModal} modalItem={modalItem} handleModalClosed={handleModalClosed}/>
+            <Modal 
+                showModal={showModal} 
+                modalItem={modalItem} 
+                handleModalClosed={handleModalClosed}
+            />
         </>
     )
 }

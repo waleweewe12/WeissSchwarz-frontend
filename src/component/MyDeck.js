@@ -1,19 +1,20 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Card, Col, Container} from 'react-bootstrap';
+import AddDeck from './AddDeck';
 
 export default (props) => {
 
-    const [addCard, setAddCard] = useState(false);
+    const [addDeck, setAddDeck] = useState(false);
     
-    const handleAddCardClicked = () => {
-        setAddCard(true);
+    const handleAddDeckClicked = () => {
+        setAddDeck(!addDeck);
     }
 
     return(
         <>
             <Container fluid>
-                {!addCard &&
+                {!addDeck &&
                     <Row 
                         style={{
                             marginTop:'25px',
@@ -42,7 +43,7 @@ export default (props) => {
                                         border:'none',
                                         cursor:'pointer',
                                     }}
-                                    onClick={handleAddCardClicked}
+                                    onClick={handleAddDeckClicked}
                                 >
                                     <Card.Img variant="top" src={process.env.PUBLIC_URL + '/new_deck.PNG'}/>
                                     <Card.Body >
@@ -50,6 +51,16 @@ export default (props) => {
                                     </Card.Body>
                                 </Card>
                         </Col>
+                    </Row>
+                }
+                {addDeck &&
+                    <Row 
+                        className="justify-content-center"
+                        style={{
+                            marginTop:'2%',
+                        }}
+                    >
+                        <AddDeck handleAddDeckClicked={handleAddDeckClicked}/>
                     </Row>
                 }
             </Container>
