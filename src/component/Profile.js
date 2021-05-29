@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {
     BrowserRouter as Router,
-    Link,
     Switch,
     Route,
     Redirect
@@ -12,6 +11,7 @@ import Series from './Series';
 import Navbar from './Navbar';
 import ViewCard from './ViewCard';
 import MyDeck from './MyDeck';
+import Friends from './Friends';
 
 function Profile(){
 
@@ -63,8 +63,8 @@ function Profile(){
                     <Route path="/Series/:series">
                         <ViewCard />
                     </Route>
-                    <Route path="/Friend">
-                        <p>Friend</p>
+                    <Route path="/Friends">
+                        <Friends />
                     </Route>
                     <Route path="/Invited">
                         <p>Invited</p>
