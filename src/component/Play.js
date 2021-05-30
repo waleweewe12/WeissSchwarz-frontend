@@ -9,7 +9,6 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import firebase from '../firebase';
-import Invited from './Invited';
 
 export default (props) => {
 
@@ -21,7 +20,7 @@ export default (props) => {
     const [myDeck, setMyDeck] = useState([]);
     const [deckSelected, setDeckSelected] = useState({});
 
-    const handleInvitedClicked = async (friend) =>{
+    const handleInviteClicked = async (friend) =>{
         setInvite(true);
         try {
             let token = localStorage.getItem('token');
@@ -125,9 +124,6 @@ export default (props) => {
     return(
         <>
             <Container>
-                {myInviteId !== '' &&
-                    <Invited invited={myInviteId}/>
-                }
                 {!invite &&
                     <>
                         <Row style={{ margin:'2% 0%'}}>
@@ -155,7 +151,7 @@ export default (props) => {
                                                 {value.status === 'online' &&
                                                     <Button 
                                                         variant="outline-success"
-                                                        onClick={() => {handleInvitedClicked(value)}}
+                                                        onClick={() => {handleInviteClicked(value)}}
                                                         style={{
                                                             marginLeft:'10%'
                                                         }}
@@ -188,6 +184,7 @@ export default (props) => {
                         </Col>
                     </Row>
                 }
+                {/* show deck after accepted invited */}
                 <Row style={{marginTop:'2%'}}>
                     {ready && Object.keys(deckSelected).length === 0 &&
                         myDeck.map((item, index) =>
@@ -208,6 +205,7 @@ export default (props) => {
                         )
                     }
                 </Row>
+                {/* show deck selected after select deck */}
                 {Object.keys(deckSelected).length !== 0 &&
                     <>
                         <Row className="justify-content-center">
