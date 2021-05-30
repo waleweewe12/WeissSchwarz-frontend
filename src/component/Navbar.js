@@ -15,7 +15,8 @@ function MyNavbar(){
                 <Nav className="mr-auto">
                     <Link style={LinkStyle} to="/MyDeck">My Deck</Link>
                     <Link style={LinkStyle} to="/Series">Series</Link>
-                    <Link style={LinkStyle} to="/Friends">Friends</Link>
+                    <Link style={LinkStyle} to="/Play">Play</Link>
+                    <Link style={LinkStyle} to="/Invited">Invited</Link>
                 </Nav>
             </Navbar>
         </>

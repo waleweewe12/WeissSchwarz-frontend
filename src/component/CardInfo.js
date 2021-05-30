@@ -5,13 +5,20 @@ import style from '../style/CardInfoStyle'
 
 function CardInfo(props){
 
-    const [text,Settext] = useState([]) 
+    const [text, setText] = useState([]) 
     
-    useEffect(()=>{
-        let cardtext = props.text.filter(item=>item.url === props.image)
-        if(cardtext.length > 0)
-            Settext(cardtext[0].text)
-    },[props.text,props.image])
+    // useEffect(()=>{
+    //     let cardtext = props.text.filter(item=>item.url === props.image)
+    //     if(cardtext.length > 0)
+    //         Settext(cardtext[0].text)
+    // },[props.text,props.image])
+    useEffect(() => {
+        let url = props.image;
+        let cardText = (props.userDeck).find(item => item.url === url);
+        //console.log(cardText);
+        if(cardText !== undefined)
+            setText(cardText.text);
+    }, [props.image]);
 
     return(
         <div className="col-lg-3 col-md-2 col-sm-12" style={{float:"left"}}>

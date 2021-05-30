@@ -15,6 +15,8 @@ import CheckZoneComponent from './CheckZone';
 import ClimaxZoneComponent from './ClimaxZone';
 //firebase
 import firebase from '../firebase';
+//bootstrap
+import { Col } from 'react-bootstrap';
 
 function Board(props){
 
@@ -30,7 +32,7 @@ function Board(props){
         'empty_card.jpg']);
     const [Stock,setStock] = useState([]);
     const [Level,setLevel] = useState([]);
-    const [Deck,setDeck] = useState(props.playerDeck);
+    const [Deck,setDeck] = useState(props.userDeck);
     const [WaitingRoom,setWaitingRoom] = useState([]);
     const [Memory,setMemory] = useState([]);
     const [CheckZone,setCheckZone] = useState([]);
@@ -52,13 +54,13 @@ function Board(props){
             stock:Stock,
             waitingroom:WaitingRoom,
         };
-        db.collection("board").doc(props.playerName === 'butter' ? "1234" : "5678").update(data)
+        db.collection("board").doc(props.userId).update(data)
         .then(()=>{})
         .catch(err=>console.log(err));
     }
 
     useEffect(updateplayerdata,[Deck,BackRow,CheckZone,ClimaxZone,Clock,
-        FrontRow,Hand,Level,Memory,Stock,WaitingRoom,props.playerName]);
+        FrontRow,Hand,Level,Memory,Stock,WaitingRoom]);
     
     //opponent data
     const [OpponentFrontRow,setOpponentFrontRow] = useState([]);
@@ -75,7 +77,7 @@ function Board(props){
         
     useEffect(() => {
         const db = firebase.firestore();
-        db.collection("board").doc(props.playerName === 'butter' ? "5678" : "1234")
+        db.collection("board").doc(props.opponentId)
         .onSnapshot(function(doc) {
             //console.log(doc.data())
             setOpponentBackRow(doc.data().backrow)
@@ -92,7 +94,7 @@ function Board(props){
         }, function(error) {
             console.log(error)
         });
-    }, [props.playerName]);
+    }, [props.opponentId]);
 
     /*Drag-Drop */
     const [src,setSrc] = useState("empty_card.jpg");
@@ -237,7 +239,7 @@ function Board(props){
     }
 
     return(
-        <div className="col-lg-9 col-md-12 col-sm-12" style={{float:'right'}}>
+        <Col sm={12} md={12} lg={9} style={style.Board}>
             {/* opponent */}
             <div className="container-fluid" style={style.Field}>  
                 <div className="row">
@@ -454,7 +456,7 @@ function Board(props){
                     </div>
                 </div>           
             </div>
-        </div>
+        </Col>
 
         
     )

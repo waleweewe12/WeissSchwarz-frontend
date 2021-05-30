@@ -6,17 +6,62 @@ import {
     Route,
     Redirect
 } from 'react-router-dom';
+import { Container, Row } from 'react-bootstrap';
 import ViewDeck from './ViewDeck';
 import Series from './Series';
 import Navbar from './Navbar';
 import ViewCard from './ViewCard';
 import MyDeck from './MyDeck';
-import Friends from './Friends';
+import Play from './Play';
+import Board from './Board';
+import CardInfo from './CardInfo';
 
 function Profile(){
 
     const [myDeck, setMyDeck] = useState([]);
+    const [readyPlay, setReadyPlay] = useState(false);
+    const [deckPlay, setDeckPlay] = useState([]); // contain only url
+    const [userDeck, setUserDeck] = useState([]) // contain url and text
+    //ใช้ userId และ opponentId update board ของเราและคู่แข่งแบบ realtime
+    const [userId, setUserId] = useState('');
+    const [opponentId, setOpponentId] = useState('');
+    //CardUnfo
+    const [cardInfoImage, setCardInfoImage] = useState('https://inwfile.com/s-l/z9w722.jpg');
 
+    const handleReadyPlay = async (deckId) =>{
+        console.log(deckId);
+        try {
+            let token = localStorage.getItem('token');
+            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/board/prepareBoard', 
+                { deckId:deckId },
+                {
+                    headers:{
+                        'Access-Control-Allow-Origin':'*',
+                        'Authorization': 'Bearer ' + token  
+                    }
+                } 
+            );
+            //console.log(response);
+            let cardImage = (response.data.userDeck).map(item => item.url);
+            setUserDeck(response.data.userDeck)
+            setOpponentId(response.data.opponentId);
+            setUserId(response.data.userId);
+            setDeckPlay(cardImage);
+            setReadyPlay(true);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    //ฟังก์ชันสำหรับ set รูปภาพให้ CardInfo
+    const HandleCardOver = (e)=>{
+        let url = e.target.src;
+        if(!url.includes('empty_card.jpg'))
+            setCardInfoImage(url);
+    }
+
+    //load deck by userId
     useEffect(() => {
         async function loadMyDeck(){
             try {
@@ -38,12 +83,12 @@ function Profile(){
             }
         }
         loadMyDeck();
-    }, [])
+    }, []);
 
     return(
         <>
             <Router>
-                <Navbar/>
+                {!readyPlay && <Navbar/>}
                 <Switch>
                     <Route exact path="/">
                         <Redirect to="/MyDeck" />
@@ -63,12 +108,27 @@ function Profile(){
                     <Route path="/Series/:series">
                         <ViewCard />
                     </Route>
-                    <Route path="/Friends">
-                        <Friends />
+                    <Route path="/Play">
+                        {!readyPlay && 
+                            <Play handleReadyPlay={handleReadyPlay}/>
+                        }
+                        {readyPlay && 
+                            <Container fluid>
+                                <Row>
+                                    <Board 
+                                        userDeck={deckPlay} 
+                                        userId={userId} 
+                                        opponentId={opponentId} 
+                                        HandleCardOver={HandleCardOver}
+                                    />
+                                    <CardInfo image={cardInfoImage} userDeck={userDeck}/>
+                                </Row>
+                            </Container>
+                        }
                     </Route>
-                    <Route path="/Invited">
+                    {/* <Route path="/Invited">
                         <p>Invited</p>
-                    </Route>
+                    </Route> */}
                 </Switch>
             </Router>
         </>

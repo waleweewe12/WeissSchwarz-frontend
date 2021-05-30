@@ -11,7 +11,7 @@ const style = {
     },
     EmptycardStyle :{
         opacity:"0.5",
-        cursor:"auto"
+        cursor:"auto",
     },
     ClockStyle :{
         marginLeft:"0px"
@@ -76,6 +76,9 @@ const style = {
         marginRight:'auto',
         textAlign:'center',
         position:'relative'
+    },
+    Board: {
+        backgroundImage:"url(" + (process.env.PUBLIC_URL + '/okayu.png') + ")",
     }
 }
 

@@ -22,7 +22,7 @@ function LogIn(props){
             console.log(response.data);
             if(response.data.status === 'success'){
                 localStorage.setItem('token', response.data.token);
-                props.SetplayerName(username);
+                props.setIsLoggedIn(true);
             }
         })
         .catch((err) => {

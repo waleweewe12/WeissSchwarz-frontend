@@ -44,6 +44,13 @@ function FrontRow(props){
         SetFrontRowOption(cloneFrontRowOption)
     }
 
+    const handleNewCardDrop = (e) => {
+        let cloneRotate = [...Rotate]
+        cloneRotate[e.target.attributes['index'].value] = {}
+        SetRotate(cloneRotate)
+        props.DragDrop(e);
+    }
+
     return(
         <div className="row justify-content-center" style={{marginBottom:"10px"}}>
             {props.FrontRow.map((item,i)=>
@@ -59,7 +66,7 @@ function FrontRow(props){
                         draggable="true"
                         onDragStart={props.DragStart}
                         onDragOver={props.DragOver}
-                        onDrop={props.DragDrop} 
+                        onDrop={handleNewCardDrop} 
                         onDragEnd={props.DragEnd}
                         onClick={item === 'empty_card.jpg' ? ()=>{} : HandleFrontRowOptionClicked}
                         onMouseOver={props.HandleCardOver}

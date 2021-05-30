@@ -44,6 +44,13 @@ function BackRow(props){
         SetBackRowOption(cloneBackRowOption)
     }
 
+    const handleNewCardDrop = (e) => {
+        let cloneRotate = [...Rotate]
+        cloneRotate[e.target.attributes['index'].value] = {}
+        SetRotate(cloneRotate)
+        props.DragDrop(e);
+    }
+
     return(
         <>
             {props.BackRow.map((item,i)=>
@@ -59,7 +66,7 @@ function BackRow(props){
                         draggable="true"
                         onDragStart={props.DragStart} 
                         onDragOver={props.DragOver}
-                        onDrop={props.DragDrop} 
+                        onDrop={handleNewCardDrop} 
                         onDragEnd={props.DragEnd}
                         onClick={item === 'empty_card.jpg' ? ()=>{} : HandleBackRowOptionClicked}
                         alt="..."
