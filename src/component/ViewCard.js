@@ -12,6 +12,7 @@ import Modal from './Modal';
 export default (props) => {
     const { series, deckId } = useParams();
     const [cards, setCards] = useState([]);
+    const [seriesImage, setSeriesImage] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [modalItem, setModalItem] = useState({});
 
@@ -19,7 +20,10 @@ export default (props) => {
         axios.get('http://localhost:5000/weissschwarz-f48e0/us-central1/app/card/getCardBySeriesName/' + (series === undefined ? props.series : series))
         .then((response) => {
             //console.log(response.data.cards);
-            setCards(response.data.cards);
+            if(response.data.status === 'success'){
+                setCards(response.data.cards);
+                setSeriesImage(response.data.seriesImage);
+            }
         }).catch((error) => {
             console.log(error);
         })
@@ -68,6 +72,7 @@ export default (props) => {
     return(
         <>
             <Container style={{marginTop:'2%'}}>
+                {/* แสดงปุ่มย้อนกลับ มี 2 กรณี คือ กลับไปยังหน้า Mydeck กับ กลับไปยังหน้า Series */}
                 <Row style={{marginBottom:'2%'}}>
                     <Col>
                         {deckId !== undefined &&
@@ -102,12 +107,14 @@ export default (props) => {
                         }
                     </Col>
                 </Row>
+                {/* แสดงรูปประจำซีรีย์ */}
                 <Row>
                     <Col>
-                        <img style={{width:'16rem'}} src="https://animekimi.com/wp-content/uploads/2020/01/cU4jHfo1Q9AEPnFqFqtuSA74gdi-185x278.jpg" alt="..."/>
+                        <img style={{width:'16rem'}} src={seriesImage} alt="..."/>
                         <hr />
                     </Col>
                 </Row>
+                {/* แสดงการ์ดในซีรีย์ แยกตามสี */}
                 {['red', 'green', 'blue', 'yellow'].map((color, index) => (
                     <Row key={index}>
                         {cards.filter(value => value.color === color).map((value, index) => (
@@ -122,6 +129,7 @@ export default (props) => {
                     </Row>
                 ))}
             </Container>
+            {/* modal แสดงรายละเอียดการ์ดเมื่อกดที่การ์ด */}
             <Modal 
                 showModal={showModal} 
                 modalItem={modalItem} 
