@@ -74,6 +74,10 @@ export default (props) => {
         setDeckSelected(deck);
     }
 
+    const handleCancleDeckSelected = () => {
+        setDeckSelected({});
+    }
+
     useEffect(() => {
         let token = localStorage.getItem('token');
         axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/user/getFriendsByUserId', {}, {
@@ -124,7 +128,7 @@ export default (props) => {
     return(
         <>
             <Container>
-                {!invite &&
+                {!invite && !ready &&
                     <>
                         <Row style={{ margin:'2% 0%'}}>
                             <Col>
@@ -185,6 +189,14 @@ export default (props) => {
                     </Row>
                 }
                 {/* show deck after accepted invited */}
+                {ready && Object.keys(deckSelected).length === 0 &&
+                    <Row>
+                        <Col>
+                            <h1>Select your deck</h1>
+                            <hr/>
+                        </Col>
+                    </Row>
+                }
                 <Row style={{marginTop:'2%'}}>
                     {ready && Object.keys(deckSelected).length === 0 &&
                         myDeck.map((item, index) =>
@@ -224,7 +236,16 @@ export default (props) => {
                                         >
                                             Let's Play !
                                         </Button>
-                                        <Button variant="danger" style={{ width:'100%', marginTop:'4%' }}>เลือกเด็คใหม่</Button>
+                                        <Button 
+                                            variant="danger" 
+                                            style={{ 
+                                                width:'100%', 
+                                                marginTop:'4%' 
+                                            }}
+                                            onClick={handleCancleDeckSelected}
+                                        >
+                                                เลือกเด็คใหม่
+                                        </Button>
                                     </Card.Body>
                                 </Card>
                             </Col>

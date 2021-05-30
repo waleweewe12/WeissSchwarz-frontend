@@ -44,8 +44,12 @@ export default (props) => {
         }
     }
 
-    const handleDeckSelected = (deck) =>{
+    const handleDeckSelected = (deck) => {
         setDeckselected(deck);
+    }
+
+    const handleCancleDeckSelected = () => {
+        setDeckselected({});
     }
 
     //load invite by userId
@@ -127,60 +131,77 @@ export default (props) => {
                     </>
                 }
                 {/* show deck after accepted invited */}
-                <Row style={{marginTop:'2%'}}>
-                        {acceptInvited && Object.keys(deckSelected).length === 0 &&
-                            myDeck.map((item, index) =>
-                                <Col xs={6} md={3} lg={2} key={index}>
-                                    <Card 
-                                        style={{ 
-                                            border:'none',
-                                            cursor:'pointer'
-                                        }}
-                                        onClick={() => {handleDeckSelected(item)}}
-                                    >
-                                        <Card.Img variant="top" src={item.DeckImage}/>
-                                        <Card.Body >
-                                            <Card.Title style={{textAlign:'center'}}>{item.DeckName}</Card.Title>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            )
-                        }
+                {acceptInvited && Object.keys(deckSelected).length === 0 &&
+                    <Row>
+                        <Col>
+                            <h1>Select your deck</h1>
+                            <hr/>
+                        </Col>
                     </Row>
-                    {/* show deck selected after select deck */}
-                    {Object.keys(deckSelected).length !== 0 &&
-                        <>
-                            <Row className="justify-content-center">
-                                <Col xs={6} sm={6} md={3} lg={3}>
-                                    <Card 
-                                        style={{ 
-                                            border:'none',
-                                        }}
-                                    >
-                                        <Card.Img variant="top" src={deckSelected.DeckImage}/>
-                                        <Card.Body >
-                                            <Card.Title style={{textAlign:'center'}}>{deckSelected.DeckName}</Card.Title>
-                                            <Link to="/Play">
-                                                <Button 
-                                                    style={{ width:'100%' }} 
-                                                    onClick={
-                                                        () => {
-                                                            props.handleInvitedReadyPlay({
-                                                                deckId:deckSelected.DeckId,
-                                                                opponentId:inviteId,
-                                                            })
-                                                        }}
-                                                >
-                                                    Let's Play !
-                                                </Button>
-                                            </Link>
-                                            <Button variant="danger" style={{ width:'100%', marginTop:'4%' }}>เลือกเด็คใหม่</Button>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            </Row>
-                        </>
+                }
+                <Row style={{marginTop:'2%'}}>
+                    {acceptInvited && Object.keys(deckSelected).length === 0 &&
+                        myDeck.map((item, index) =>
+                            <Col xs={6} md={3} lg={2} key={index}>
+                                <Card 
+                                    style={{ 
+                                        border:'none',
+                                        cursor:'pointer'
+                                    }}
+                                    onClick={() => {handleDeckSelected(item)}}
+                                >
+                                    <Card.Img variant="top" src={item.DeckImage}/>
+                                    <Card.Body >
+                                        <Card.Title style={{textAlign:'center'}}>{item.DeckName}</Card.Title>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
                     }
+                </Row>
+                {/* show deck selected after select deck */}
+                {Object.keys(deckSelected).length !== 0 &&
+                    <>
+                        <Row className="justify-content-center">
+                            <Col xs={6} sm={6} md={3} lg={3}>
+                                <Card 
+                                    style={{ 
+                                        border:'none',
+                                    }}
+                                >
+                                    <Card.Img variant="top" src={deckSelected.DeckImage}/>
+                                    <Card.Body >
+                                        <Card.Title style={{textAlign:'center'}}>{deckSelected.DeckName}</Card.Title>
+                                        <Link to="/Play">
+                                            <Button 
+                                                style={{ width:'100%' }} 
+                                                onClick={
+                                                    () => {
+                                                        props.handleInvitedReadyPlay({
+                                                            deckId:deckSelected.DeckId,
+                                                            opponentId:inviteId,
+                                                        })
+                                                    }}
+                                            >
+                                                Let's Play !
+                                            </Button>
+                                        </Link>
+                                        <Button 
+                                            variant="danger" 
+                                            style={{ 
+                                                width:'100%', 
+                                                marginTop:'4%' 
+                                            }}
+                                            onClick={handleCancleDeckSelected}
+                                        >
+                                            เลือกเด็คใหม่
+                                        </Button>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </>
+                }
             </Container>
         </>
     )
