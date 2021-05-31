@@ -27,7 +27,7 @@ export default (props) => {
         //load user deck 
         let token = localStorage.getItem('token');
         try {
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/invite/acceptedInvited',
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/invite/acceptedInvited',
             { inviteId:invite.invite }, 
             {
                 headers:{
@@ -55,7 +55,7 @@ export default (props) => {
     //load invite by userId
     useEffect(() => {
         let token = localStorage.getItem('token');
-        axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/invite/getInvite', {}, {
+        axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/invite/getInvite', {}, {
             headers:{
                 'Access-Control-Allow-Origin':'*',
                 'Authorization': 'Bearer ' + token  

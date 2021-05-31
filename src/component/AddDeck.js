@@ -28,7 +28,7 @@ export default (props) => {
                     deckName:deckName,
                     seriesName:seriesSelected
                 }
-                let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/addDeck', data, {
+                let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/deck/addDeck', data, {
                     headers:{
                         'Access-Control-Allow-Origin':'*',
                         'Authorization': 'Bearer ' + token  
@@ -43,7 +43,7 @@ export default (props) => {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:5000/weissschwarz-f48e0/us-central1/app/series/getAllSeries/')
+        axios.get('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/series/getAllSeries/')
         .then((response) => {
             let series = (response.data.series).map(item => item.seriesName);
             console.log(series);

@@ -29,7 +29,7 @@ function Register(){
         setModalHeader('กำลังดำเนินการ');
         setModalMessage('กำลังดำเนินการ กรุณารอซักครู่');
         setModal(true);
-        const apiPath = 'http://localhost:5000/weissschwarz-f48e0/us-central1/app/register';
+        const apiPath = 'https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/register';
         try {
             let response = await axios.post(apiPath, {
                 username,

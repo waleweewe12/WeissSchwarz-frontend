@@ -34,7 +34,7 @@ function Profile(props){
         //console.log(deckId);
         try {
             let token = localStorage.getItem('token');
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/board/prepareBoard', 
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/board/prepareBoard', 
                 { deckId:deckId },
                 {
                     headers:{
@@ -60,7 +60,7 @@ function Profile(props){
     const handleInvitedReadyPlay = async (data) => {
         try {
             let token = localStorage.getItem('token');
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/board/prepareInvitedBoard', 
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/board/prepareInvitedBoard', 
                 { deckId:data.deckId },
                 {
                     headers:{
@@ -99,7 +99,7 @@ function Profile(props){
         async function loadMyDeck(){
             try {
                 let token = localStorage.getItem('token');
-                let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/getDeck', {}, {
+                let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/deck/getDeck', {}, {
                     headers:{
                         'Access-Control-Allow-Origin':'*',
                         'Authorization': 'Bearer ' + token  

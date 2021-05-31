@@ -14,7 +14,7 @@ function LogIn(props){
     }
     const Submit = async (e)=>{
         e.preventDefault()
-        axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/signIn/',{
+        axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/signIn/',{
             username:username,
             password:password
         }).then((response) => {

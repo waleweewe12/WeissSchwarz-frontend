@@ -21,7 +21,7 @@ function MyNavbar(props){
     const handleSignOutClicked = async() => {
         try {
             let token = localStorage.getItem('token');
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/signIn/signOut', {}, {
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/signIn/signOut', {}, {
                 headers:{
                     'Access-Control-Allow-Origin':'*',
                     'Authorization': 'Bearer ' + token  

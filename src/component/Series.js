@@ -8,7 +8,7 @@ function NewDeck(){
     const [allSeries, setAllSeries] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/weissschwarz-f48e0/us-central1/app/series/getAllSeries')
+        axios.get('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/series/getAllSeries')
         .then((response) => {
             setAllSeries(response.data.series);
         }).catch((error) => {

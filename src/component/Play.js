@@ -24,7 +24,7 @@ export default (props) => {
         setInvite(true);
         try {
             let token = localStorage.getItem('token');
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/invite/addInvite', 
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/invite/addInvite', 
                 { friendId:friend.friendId }, 
                 {
                     headers:{
@@ -42,7 +42,7 @@ export default (props) => {
     const handleCancleInvite = async () => {
         setInvite(false);
         try {
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/invite/deleteInvite', {
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/invite/deleteInvite', {
                 userId:myInviteId,
             });
             console.log(response.data);
@@ -56,7 +56,7 @@ export default (props) => {
     const getMyDeck = async() =>{
         let token = localStorage.getItem('token');
         try {
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/getDeck',{}, {
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/deck/getDeck',{}, {
                 headers:{
                     'Access-Control-Allow-Origin':'*',
                     'Authorization': 'Bearer ' + token  
@@ -80,7 +80,7 @@ export default (props) => {
 
     useEffect(() => {
         let token = localStorage.getItem('token');
-        axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/user/getFriendsByUserId', {}, {
+        axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/user/getFriendsByUserId', {}, {
             headers:{
                 'Access-Control-Allow-Origin':'*',
                 'Authorization': 'Bearer ' + token  

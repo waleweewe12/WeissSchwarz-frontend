@@ -95,7 +95,7 @@ function Upload() {
                 CardType,
                 CardId
             };
-            axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/card/addCard',CardData)
+            axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/card/addCard',CardData)
             .then((response) => {
                 console.log(response)
             })

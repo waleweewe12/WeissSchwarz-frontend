@@ -15,7 +15,7 @@ function ResetPasswordStatus(){
 
     const handlePasswordClicked = async () =>{
         try {
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/signin/changePassword', {
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/signin/changePassword', {
                 id,
                 password
             });

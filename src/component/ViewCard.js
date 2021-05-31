@@ -16,7 +16,7 @@ export default (props) => {
     const [modalItem, setModalItem] = useState({});
 
     useEffect(() => {
-        axios.get('http://localhost:5000/weissschwarz-f48e0/us-central1/app/card/getCardBySeriesName/' + (series === undefined ? props.series : series))
+        axios.get('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/card/getCardBySeriesName/' + (series === undefined ? props.series : series))
         .then((response) => {
             //console.log(response.data.cards);
             if(response.data.status === 'success'){
@@ -56,7 +56,7 @@ export default (props) => {
 
     const addCardToDeck = async (card) =>{
         try {
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/addCard/', {
+            let response = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/deck/addCard/', {
                 deckId:deckId,
                 cardId:card.CardId
             });

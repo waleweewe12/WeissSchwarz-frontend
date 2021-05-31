@@ -18,7 +18,7 @@ function App() {
   const [username, setUsername] = useState('');
  
   useEffect(()=>{
-    axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/signIn/auth', {}, {
+    axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/signIn/auth', {}, {
       headers:{
         Authorization: 'Bearer ' + localStorage.getItem('token')  
       }

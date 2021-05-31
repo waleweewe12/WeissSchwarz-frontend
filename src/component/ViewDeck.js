@@ -41,7 +41,7 @@ function ViewDeck(){
     const handleIncreaseCardClicked = async (cardId) => {
         try {
             //เพิ่มจำนวนการ์ดใน database
-            let response =  await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/addCard/', {
+            let response =  await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/deck/addCard/', {
                 deckId:deckId,
                 cardId:cardId
             })
@@ -63,7 +63,7 @@ function ViewDeck(){
     const handleDecreaseCardClicked = async (cardId) => {
         try {
             //ลดจำนวนการ์ดใน database
-            let response =  await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/deleteCard/', {
+            let response =  await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/deck/deleteCard/', {
                 deckId:deckId,
                 cardId:cardId
             })
@@ -85,13 +85,13 @@ function ViewDeck(){
     useEffect(() => {
         async function loadDeckById(deckId){
             try {
-                let deckResponse  = await axios.get('http://localhost:5000/weissschwarz-f48e0/us-central1/app/deck/getDeckByDeckId/' + deckId);
+                let deckResponse  = await axios.get('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/deck/getDeckByDeckId/' + deckId);
                 console.log(deckResponse.data);
                 setDeckName(deckResponse.data.deck.DeckName);
                 if(deckResponse.data.status === 'success'){
                     let cardIds = deckResponse.data.deck.CardIdList;
                     //get card data by cardId
-                    let cardResponse = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/card/getCardByMultipleCardId', { cardIds })
+                    let cardResponse = await axios.post('https://us-central1-weissschwarz-f48e0.cloudfunctions.net/app/card/getCardByMultipleCardId', { cardIds })
                     console.log(cardResponse);
                     cardResponse.data.status === 'success' ? setDeck(cardResponse.data.cardData) : setDeck([]);
                 }
