@@ -166,7 +166,7 @@ function ViewDeck(){
                             </Card>
                         </Col>
                     ))}
-                    {/* New Deck */}
+                    {/* Add new card to deck */}
                     <Col xs={6} md={3} lg={2}>
                         {/* View card in this series */}
                         <Link 
@@ -184,7 +184,7 @@ function ViewDeck(){
                                     border:'none',
                                 }}
                             >
-                                <Card.Img variant="top" src={process.env.PUBLIC_URL + '/new_deck.PNG'} />
+                                <Card.Img variant="top" src={process.env.PUBLIC_URL + '/add_card.png'} />
                                 <Card.Text>+ Add Card</Card.Text>
                             </Card>
                         </Link>
