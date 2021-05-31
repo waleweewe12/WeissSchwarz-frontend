@@ -1,7 +1,6 @@
 import React,{useState} from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import ResetPassword from './ResetPassword';
 
 function LogIn(props){
 
@@ -23,6 +22,7 @@ function LogIn(props){
             if(response.data.status === 'success'){
                 localStorage.setItem('token', response.data.token);
                 props.setIsLoggedIn(true);
+                props.setUsername(username);
             }
         })
         .catch((err) => {

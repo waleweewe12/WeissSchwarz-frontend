@@ -15,6 +15,7 @@ import {
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
  
   useEffect(()=>{
     axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/signIn/auth', {}, {
@@ -25,6 +26,7 @@ function App() {
       //console.log(response.data);
       if(response.data.status === 'success'){
         setIsLoggedIn(true);
+        setUsername(response.data.username);
       }
     }).catch((error) => {
       console.log(error);
@@ -36,9 +38,13 @@ function App() {
     <>
       <Router>
         <Switch>
-          {isLoggedIn ? <Route path="/" component={Profile}/> :
+          {isLoggedIn ? 
+            <Route path="/"> 
+              <Profile username={username}/>
+            </Route>
+            :
             <Route path="/" exact>
-              <LogIn setIsLoggedIn={setIsLoggedIn}/>
+              <LogIn setIsLoggedIn={setIsLoggedIn} setUsername={setUsername}/>
             </Route>
           }
           <Route path="/register" exact component={Register}/>

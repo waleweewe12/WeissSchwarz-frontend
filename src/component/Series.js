@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 function NewDeck(){
 
-    const [allCardSeries, setAllCardSeries] = useState([]);
     const [allSeries, setAllSeries] = useState([]);
 
     useEffect(() => {

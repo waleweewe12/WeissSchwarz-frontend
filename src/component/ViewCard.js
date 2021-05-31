@@ -5,7 +5,6 @@ import { Container,
     Row,
     Col,
     Button, 
-    Table,
 } from 'react-bootstrap';
 import Modal from './Modal';
 

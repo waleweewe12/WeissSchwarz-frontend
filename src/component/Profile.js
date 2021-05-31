@@ -17,7 +17,7 @@ import Board from './Board';
 import CardInfo from './CardInfo';
 import Invited from './Invited';
 
-function Profile(){
+function Profile(props){
 
     const [myDeck, setMyDeck] = useState([]);
     const [readyPlay, setReadyPlay] = useState(false);
@@ -121,7 +121,7 @@ function Profile(){
     return(
         <>
             <Router>
-                {!readyPlay && <Navbar/>}
+                {!readyPlay && <Navbar username={props.username}/>}
                 <Switch>
                     <Route exact path="/">
                         <Redirect to="/MyDeck" />
