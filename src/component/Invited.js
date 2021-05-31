@@ -27,7 +27,7 @@ export default (props) => {
         //load user deck 
         let token = localStorage.getItem('token');
         try {
-            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/invite//acceptedInvited',
+            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/invite/acceptedInvited',
             { inviteId:invite.invite }, 
             {
                 headers:{
