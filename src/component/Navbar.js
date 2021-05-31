@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function MyNavbar(props){
     
@@ -17,9 +18,23 @@ function MyNavbar(props){
         opacity:'1.0',
     };
 
-    const handleSignOutClicked = () =>{
-        localStorage.removeItem('token');
-        window.location.href = '/';
+    const handleSignOutClicked = async() => {
+        try {
+            let token = localStorage.getItem('token');
+            let response = await axios.post('http://localhost:5000/weissschwarz-f48e0/us-central1/app/signIn/signOut', {}, {
+                headers:{
+                    'Access-Control-Allow-Origin':'*',
+                    'Authorization': 'Bearer ' + token  
+                }
+            });
+            if(response.data.status === 'success'){
+                localStorage.removeItem('token');
+                window.location.href = '/';
+            }
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
 
     return(
